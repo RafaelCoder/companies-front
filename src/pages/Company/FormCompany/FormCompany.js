@@ -4,6 +4,7 @@ import InputMask from "react-input-mask";
 import { useState, useEffect } from 'react';
 import ViaCEPAPIService from '../../../services/ViaCEPAPIService';
 import CompanyAPIService from '../../../services/CompanyAPIService.js';
+import StateComboBox from '../../../components/StateComboBox';
 
 export default function FormCompany({company}){
     const [id, setId] = useState('');
@@ -45,7 +46,7 @@ export default function FormCompany({company}){
     }
 
     let getAddresByZipCode = () => {
-        let _zipCode = zipCode.trim().replace(/\D/g, "");;
+        let _zipCode = zipCode.trim().replace(/\D/g, "");
 
         if(_zipCode.length !== 8)
             return;
@@ -109,15 +110,15 @@ export default function FormCompany({company}){
                     disabled
                 />
 
-                <TextInput
-                    withAsterisk
-                    label="Nome"
-                    placeholder="Nome"
-                    value={name}
-                    onChange={evt => setName(evt.target.value)}
-                    autoFocus
-                    required
-                />
+                <Input.Wrapper label="Nome" required>
+                    <Input
+                        placeholder="Nome da empresa"
+                        value={name}
+                        onChange={evt => setName(evt.target.value)}
+                        required
+                        maxLength={200}
+                    />
+                </Input.Wrapper>
 
                 <Input.Wrapper label="Telefone" required>
                     <Input
@@ -131,19 +132,18 @@ export default function FormCompany({company}){
 
                 <Divider my="sm" />
 
-                
                 <Input.Wrapper label="CEP" required>
                     <Input
                         component={InputMask}
-                        mask="99999-99"
-                        placeholder="00000-00"
+                        mask="99999-999"
+                        placeholder="00000-000"
                         onBlur={() => getAddresByZipCode()}
                         value={zipCode}
                         onChange={evt => setZipCode(evt.target.value)}
                         required
                     />
                 </Input.Wrapper>
-                
+
                 <TextInput
                     withAsterisk
                     label="Logradouro"
@@ -181,12 +181,9 @@ export default function FormCompany({company}){
                     required
                 />
 
-                <TextInput
-                    label="Estado"
-                    placeholder=""
+                <StateComboBox
                     value={state}
-                    onChange={evt => setState(evt.target.value)}
-                    required
+                    setValue={setState}
                 />
 
                 <TextInput
