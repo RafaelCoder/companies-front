@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { TextInput, Divider , Button, Group, Box } from '@mantine/core';
+import { TextInput, Divider , Button, Group, Box, Input } from '@mantine/core';
+import InputMask from "react-input-mask";
 import { useState, useEffect } from 'react';
 import ViaCEPAPIService from '../../../services/ViaCEPAPIService';
 import CompanyAPIService from '../../../services/CompanyAPIService.js';
@@ -118,27 +119,30 @@ export default function FormCompany({company}){
                     required
                 />
 
-                <TextInput
-                    withAsterisk
-                    label="Telefone"
-                    placeholder="(99) 9 9999-9999"
-                    value={phone}
-                    onChange={evt => setPhone(evt.target.value)}
-                    required
-                />
+                <Input.Wrapper label="Telefone" required>
+                    <Input
+                        component={InputMask}
+                        mask="(99) 9999-9999"
+                        placeholder="Informe seu telefone"
+                        value={phone}
+                        onChange={evt => setPhone(evt.target.value)}
+                    />
+                </Input.Wrapper>
 
                 <Divider my="sm" />
 
                 
-                <TextInput
-                    withAsterisk
-                    label="CEP"
-                    placeholder="00000-000"
-                    onBlur={() => getAddresByZipCode()}
-                    value={zipCode}
-                    onChange={evt => setZipCode(evt.target.value)}
-                    required
-                />
+                <Input.Wrapper label="CEP" required>
+                    <Input
+                        component={InputMask}
+                        mask="99999-99"
+                        placeholder="00000-00"
+                        onBlur={() => getAddresByZipCode()}
+                        value={zipCode}
+                        onChange={evt => setZipCode(evt.target.value)}
+                        required
+                    />
+                </Input.Wrapper>
                 
                 <TextInput
                     withAsterisk
