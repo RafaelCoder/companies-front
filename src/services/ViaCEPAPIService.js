@@ -7,7 +7,7 @@ export default class ViaCEPAPIService{
 
     findCep(cep, callback){
         cep = cep.trim().replace(/\D/g, "");
-        if(cep=='')
+        if(cep==='')
             cep = '0000000';
         axios.get(`https://viacep.com.br/ws/${cep}/json/`)
             .then((res) =>{

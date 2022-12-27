@@ -3,19 +3,16 @@ import React, { useState, useEffect } from 'react';
 import TableCompany from './TableCompany';
 import { Button } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
-import EmployeeAPIService from '../../services/EmployeeAPIService.js';
 
 export default function Companies(){
     const [companies, setCompanies] = useState([]);
     const navigate = useNavigate();
-    
 
     let api = CompanyAPIService.getInstance();
-    let employeeApi = EmployeeAPIService.getInstance();
 
     useEffect(() => {
+        console.log('frieeera');
         loadData();
-        
     }, []);
 
     let loadData = () =>{
@@ -30,7 +27,7 @@ export default function Companies(){
     }
 
     let handleDelete = (data) => {
-        employeeApi.delete(data.id, () =>{
+        api.delete(data.id, () =>{
             loadData();
         });
     }

@@ -17,19 +17,22 @@ export default function FormCompany({company}){
     const [state, setState] = useState('');
     const [complement, setComplement] = useState('');
 
+    useEffect(
+        ()=>{
+            populateFields();
+        }, [company]);
+
     const navigate = useNavigate();
 
     let zipCodeAPI = ViaCEPAPIService.getInstance();
     let companyApi = CompanyAPIService.getInstance();
 
-    useEffect(
-        ()=>{
-            populateFields();
-        }, []
-    );
+    
 
     let populateFields = () =>{
+        console.log('...', company);
         if(!company) return;
+        console.log('setar dados do company', company?.name);
         setId(company?.id ?? '');
         setName(company?.name);
         setPhone(company?.phone);
@@ -45,10 +48,10 @@ export default function FormCompany({company}){
     let getAddresByZipCode = () => {
         let _zipCode = zipCode.trim().replace(/\D/g, "");;
 
-        if(_zipCode.length != 8)
+        if(_zipCode.length !== 8)
             return;
 
-        if(zipCodeFind == _zipCode)
+        if(zipCodeFind === _zipCode)
             return;
         
         zipCodeAPI.findCep(zipCode,
@@ -84,7 +87,7 @@ export default function FormCompany({company}){
                 complement: complement
             }
         };
-        if(id != ''){
+        if(id !== ''){
             newCompany = {...newCompany, id: id};
             companyApi.putCompany(newCompany, ()=> {
                 onSuccess();
@@ -114,6 +117,7 @@ export default function FormCompany({company}){
                     value={name}
                     onChange={evt => setName(evt.target.value)}
                     autoFocus
+                    required
                 />
 
                 <TextInput
@@ -122,6 +126,7 @@ export default function FormCompany({company}){
                     placeholder="(99) 9 9999-9999"
                     value={phone}
                     onChange={evt => setPhone(evt.target.value)}
+                    required
                 />
 
                 <Divider my="sm" />
@@ -134,6 +139,7 @@ export default function FormCompany({company}){
                     onBlur={() => getAddresByZipCode()}
                     value={zipCode}
                     onChange={evt => setZipCode(evt.target.value)}
+                    required
                 />
                 
                 <TextInput
@@ -142,6 +148,7 @@ export default function FormCompany({company}){
                     placeholder="Rua ..."
                     value={street}
                     onChange={evt => setStreet(evt.target.value)}
+                    required
                 />
 
                 <TextInput
@@ -151,6 +158,7 @@ export default function FormCompany({company}){
                     size="sm"
                     value={number}
                     onChange={evt => setNumber(evt.target.value)}
+                    required
                 />
 
                 <TextInput
@@ -159,6 +167,7 @@ export default function FormCompany({company}){
                     placeholder=""
                     value={neighborhood}
                     onChange={evt => setNeighborhood(evt.target.value)}
+                    required
                 />
 
                 <TextInput
@@ -167,14 +176,15 @@ export default function FormCompany({company}){
                     placeholder=""
                     value={city}
                     onChange={evt => setCity(evt.target.value)}
+                    required
                 />
 
                 <TextInput
-                    withAsterisk
                     label="Estado"
                     placeholder=""
                     value={state}
                     onChange={evt => setState(evt.target.value)}
+                    required
                 />
 
                 <TextInput

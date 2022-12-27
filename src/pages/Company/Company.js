@@ -24,6 +24,7 @@ export default function Company(){
     let LoadData = () =>{
         if(!idCompany) return;
         companyApi.getCompany(idCompany, (res)=>{
+            console.log('xxx', res);
             setCompany(res);
         });
     }
