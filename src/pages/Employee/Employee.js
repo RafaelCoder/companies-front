@@ -1,4 +1,4 @@
-import { TextInput, Button, Group, Box, Select } from '@mantine/core';
+import { Input, TextInput, Button, Group, Box, Select } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import RoleAPIService from '../../services/RoleAPIService.js';
 import EmployeeAPIService from '../../services/EmployeeAPIService.js';
@@ -12,8 +12,8 @@ export default function Employee(){
 
     const [id, setId] = useState(0);
     const [name, setName] = useState('');
-    const [role, setRole] = useState(0);
-    const [salary, setSalary] = useState(0);
+    const [role, setRole] = useState(1);
+    const [salary, setSalary] = useState('');
     const [roles, setRoles] = useState([]);
 
     let api = RoleAPIService.getInstance();
@@ -75,6 +75,7 @@ export default function Employee(){
                     placeholder="Nome"
                     value={name}
                     onChange={evt => setName(evt.target.value)}
+                    required
                 />
 
                 <Select
@@ -86,13 +87,17 @@ export default function Employee(){
                     required
                 />
 
-                <TextInput
-                    withAsterisk
-                    label="Salario"
-                    placeholder=""
-                    value={salary}
-                    onChange={evt => setSalary(evt.target.value)}
-                />
+                <Input.Wrapper label="Salário" required>
+                    <Input
+                        type="number"
+                        value={salary}
+                        onChange={evt => setSalary(evt.target.value)}
+                        alwaysShowMask
+                        required
+                        min={1}
+                        step="any"
+                    />
+                </Input.Wrapper>
 
                 <Group position="right" mt="md">
                     <Button type="submit">Gravar</Button>
