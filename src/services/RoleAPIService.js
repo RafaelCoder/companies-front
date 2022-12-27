@@ -7,7 +7,7 @@ export default class RoleAPIService extends CompanyServiceAPIBase {
     }
 
     getRoles(callback){
-        axios.get(this._BaseURL+'/roles')
+        axios.get(this._BaseURL+'role')
             .then((res) =>{
                 callback(res.data);
             });
