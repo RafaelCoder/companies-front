@@ -30,9 +30,7 @@ export default function FormCompany({company}){
     
 
     let populateFields = () =>{
-        console.log('...', company);
         if(!company) return;
-        console.log('setar dados do company', company?.name);
         setId(company?.id ?? '');
         setName(company?.name);
         setPhone(company?.phone);

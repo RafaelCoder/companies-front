@@ -1,6 +1,7 @@
 import axios from 'axios';
-export default class CompanyAPIService{
-    _BaseURL = 'https://localhost:7256/';
+import CompanyServiceAPIBase from './CompanyServiceAPIBase.js';
+
+export default class CompanyAPIService extends CompanyServiceAPIBase {
     _instance = null;
 
     static getInstance(){

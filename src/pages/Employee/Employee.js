@@ -21,7 +21,6 @@ export default function Employee(){
 
     useEffect(
         () => {
-            console.log('use effect');
             api.getRoles((res) => {
                 setRoles(res);
             });

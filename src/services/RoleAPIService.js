@@ -1,13 +1,13 @@
 import axios from 'axios';
+import CompanyServiceAPIBase from './CompanyServiceAPIBase.js';
 
-export default class RoleAPIService{
-    _BaseURL = 'https://localhost:7256/role';
+export default class RoleAPIService extends CompanyServiceAPIBase {
     static getInstance(){
         return new RoleAPIService();
     }
 
     getRoles(callback){
-        axios.get(this._BaseURL)
+        axios.get(this._BaseURL+'/roles')
             .then((res) =>{
                 callback(res.data);
             });

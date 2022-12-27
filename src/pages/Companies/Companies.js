@@ -11,13 +11,11 @@ export default function Companies(){
     let api = CompanyAPIService.getInstance();
 
     useEffect(() => {
-        console.log('frieeera');
         loadData();
     }, []);
 
     let loadData = () =>{
         api.getCompanies((res)=>{
-            console.log(res);
             setCompanies(res.data);
         });
     }

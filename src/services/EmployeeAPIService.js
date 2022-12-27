@@ -1,9 +1,7 @@
 import axios from 'axios';
+import CompanyServiceAPIBase from './CompanyServiceAPIBase.js';
 
-export default class EmployeeAPIService{
-
-    _BaseURL = 'https://localhost:7256/company/';
-
+export default class EmployeeAPIService extends CompanyServiceAPIBase {
     _instance;
 
     static getInstance(){
@@ -13,7 +11,7 @@ export default class EmployeeAPIService{
     }
 
     create(idCompany, payload, callback){
-        axios.post(this._BaseURL+`${idCompany}/employee`, payload)
+        axios.post(this._BaseURL+`company/${idCompany}/employee`, payload)
             .then((res) => {
                 callback(res);
             })
@@ -21,7 +19,7 @@ export default class EmployeeAPIService{
     }
 
     update(idCompany, payload, callback){
-        axios.put(this._BaseURL+`${idCompany}/employee`, payload)
+        axios.put(this._BaseURL+`company/${idCompany}/employee`, payload)
             .then((res) => {
                 callback(res);
             })
@@ -29,7 +27,7 @@ export default class EmployeeAPIService{
     }
 
     get(idCompany, idEmployee, callback){
-        axios.get(this._BaseURL+`${idCompany}/employee/${idEmployee}`)
+        axios.get(this._BaseURL+`company/${idCompany}/employee/${idEmployee}`)
             .then((res) => {
                 callback(res.data);
             })
@@ -37,7 +35,7 @@ export default class EmployeeAPIService{
     }
 
     delete(idCompany, idEmployee, callback){
-        axios.delete(this._BaseURL+`${idCompany}/employee/${idEmployee}`)
+        axios.delete(this._BaseURL+`company/${idCompany}/employee/${idEmployee}`)
             .then((res) => {
                 callback(res.data);
             })
