@@ -43,6 +43,8 @@ export default function Company(){
     }
 
     return (
+        <>
+        <h1>Cadastro de empresa</h1>
         <Tabs defaultValue="company" allowTabDeactivation={true}>
             <Tabs.List>
                 <Tabs.Tab value="company" icon={<IconFileDatabase size={14} />}>Empresa</Tabs.Tab>
@@ -63,5 +65,6 @@ export default function Company(){
                 />
             </Tabs.Panel>
         </Tabs>
+        </>
     );
 }

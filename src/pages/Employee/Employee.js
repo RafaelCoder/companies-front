@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import RoleAPIService from '../../services/RoleAPIService.js';
 import EmployeeAPIService from '../../services/EmployeeAPIService.js';
 import { useNavigate, useParams } from 'react-router-dom';
+import CompanyAPIService from '../../services/CompanyAPIService.js';
 
 
 export default function Employee(){
@@ -15,9 +16,11 @@ export default function Employee(){
     const [role, setRole] = useState(1);
     const [salary, setSalary] = useState('');
     const [roles, setRoles] = useState([]);
+    const [company, setCompany] = useState({name: ''});
 
     let api = RoleAPIService.getInstance();
     let employeeApi = EmployeeAPIService.getInstance();
+    let companyApi = CompanyAPIService.getInstance();
 
     useEffect(
         () => {
@@ -25,7 +28,14 @@ export default function Employee(){
                 setRoles(res);
             });
 
+            companyApi.getCompany(idCompany, (res) =>{
+                console.log(res);
+                setCompany(res);
+            });
+
             loadData();
+
+            
         }, []
     );
 
@@ -67,6 +77,10 @@ export default function Employee(){
     }
 
     return (
+        <>
+        <h1>Cadastro de funcionário</h1>
+        <h2>Empresa {company.name}</h2>
+
         <Box sx={{ maxWidth: 600 }} mx="auto">
             <form onSubmit={(evt) => handleSubmit(evt)}>
                 <TextInput
@@ -104,5 +118,6 @@ export default function Employee(){
                 </Group>
             </form>
         </Box>
+        </>
     );
 }
